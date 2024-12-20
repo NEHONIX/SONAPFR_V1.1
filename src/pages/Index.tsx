@@ -1,4 +1,4 @@
-import { Plant, Sprout, Users, FileSpreadsheet, ShoppingCart } from "lucide-react";
+import { Leaf, Sprout, Users, FileSpreadsheet, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ServiceCard } from "@/components/ServiceCard";
 import { Link } from "react-router-dom";
@@ -7,7 +7,7 @@ const services = [
   {
     title: "Production maraîchère",
     description: "Conseils experts pour optimiser votre production maraîchère",
-    Icon: Plant
+    Icon: Leaf
   },
   {
     title: "Consultance en agriculture",
