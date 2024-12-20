@@ -1,6 +1,4 @@
 import { Leaf, Sprout, Users, FileSpreadsheet, ShoppingCart } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ServiceCard } from "@/components/ServiceCard";
 import { Link } from "react-router-dom";
 
 const services = [
@@ -33,27 +31,35 @@ const services = [
 
 export default function Index() {
   return (
-    <div className="min-h-screen">
-      <div className="hero-section h-[60vh] flex items-center justify-center text-white">
-        <div className="text-center space-y-6 p-4">
-          <h1 className="text-4xl md:text-6xl font-bold">Expertise Agricole</h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto">
+    <div>
+      <section className="hero-section">
+        <div className="hero-content">
+          <h1 className="hero-title">Expertise Agricole</h1>
+          <p className="hero-description">
             Votre partenaire de confiance pour le développement agricole durable
           </p>
-          <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-            <Link to="/contact">Contactez-nous</Link>
-          </Button>
+          <Link to="/contact" className="button button-primary">
+            Contactez-nous
+          </Link>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center mb-12">Nos Services</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => (
-            <ServiceCard key={service.title} {...service} />
-          ))}
+      <section className="services-section">
+        <div className="container">
+          <h2 className="services-title">Nos Services</h2>
+          <div className="services-grid">
+            {services.map((service) => (
+              <div key={service.title} className="service-card">
+                <div className="service-header">
+                  <service.Icon className="service-icon" />
+                  <h3 className="service-title">{service.title}</h3>
+                </div>
+                <p className="service-description">{service.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
