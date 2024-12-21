@@ -1,0 +1,38 @@
+.toggle-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.toggle-group-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+/* Inherit styles from toggle component */
+.toggle-group-item:hover {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.toggle-group-item:focus-visible {
+  outline: none;
+  ring: 2px solid var(--ring);
+  ring-offset: 2px;
+}
+
+.toggle-group-item:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.toggle-group-item[data-state="on"] {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}

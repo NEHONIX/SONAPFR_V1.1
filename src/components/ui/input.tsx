@@ -1,16 +1,24 @@
 import * as React from "react"
+import "./styles/input.css"
 
-import { cn } from "@/lib/utils"
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  error?: boolean;
+  success?: boolean;
+}
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
-  ({ className, type, ...props }, ref) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, error, success, ...props }, ref) => {
+    const inputClasses = [
+      'input',
+      error && 'input-error',
+      success && 'input-success',
+      className
+    ].filter(Boolean).join(' ');
+
     return (
       <input
         type={type}
-        className={cn(
-          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-          className
-        )}
+        className={inputClasses}
         ref={ref}
         {...props}
       />

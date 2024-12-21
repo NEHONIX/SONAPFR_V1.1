@@ -2,35 +2,72 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "./ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
 import { Input } from "./ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
-import { useToast } from "./ui/use-toast";
+import { toast } from "react-toastify";
+import "./Style/ContactForm.css";
+import { formSchema } from "./Schema/ContacFormS";
+import { onSubmitData } from "./OnSubmit";
 
-const formSchema = z.object({
-  name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
-  email: z.string().email("Email invalide"),
-  phone: z.string().min(10, "Numéro de téléphone invalide"),
-  service: z.string({
-    required_error: "Veuillez sélectionner un service",
-  }),
-  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
-});
+type FormValues = z.infer<typeof formSchema>;
 
 export function ContactForm() {
-  const { toast } = useToast();
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "+225",
+      WhatsAppPhone: "+225",
+      service: "",
+      message: "",
+    },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    toast({
-      title: "Message envoyé !",
-      description: "Nous vous répondrons dans les plus brefs délais.",
-    });
-    form.reset();
+  async function onSubmit(values: FormValues) {
+    try {
+      const result = await onSubmitData(values);
+      if (result.success) {
+        toast.success("Message envoyé ! Nous vous répondrons dans les plus brefs délais.", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        form.reset();
+      } else {
+        toast.error(result.error || "Une erreur est survenue", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    } catch (error) {
+      toast.error("Une erreur est survenue lors de l'envoi du message.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   }
 
   return (
@@ -69,7 +106,20 @@ export function ContactForm() {
             <FormItem>
               <FormLabel>Téléphone</FormLabel>
               <FormControl>
-                <Input placeholder="0612345678" type="tel" {...field} />
+                <Input placeholder="+225xxxxxxxx" type="tel" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="WhatsAppPhone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Numéro WhatsApp</FormLabel>
+              <FormControl>
+                <Input placeholder="+225xxxxxxxx" type="tel" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -81,20 +131,26 @@ export function ContactForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Service</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Sélectionnez un service" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="maraichere">Production maraîchère</SelectItem>
-                  <SelectItem value="consultance">Consultance en agriculture</SelectItem>
-                  <SelectItem value="formation">Formation en éducation financière</SelectItem>
-                  <SelectItem value="projets">Élaboration de projets agricoles</SelectItem>
-                  <SelectItem value="commercialisation">Commercialisation de produits agricoles</SelectItem>
-                </SelectContent>
-              </Select>
+              <FormControl>
+                <select {...field} className="form-select">
+                  <option value="" disabled>
+                    Sélectionnez un service
+                  </option>
+                  <option value="maraichere">Production maraîchère</option>
+                  <option value="consultance">
+                    Consultance en agriculture
+                  </option>
+                  <option value="formation">
+                    Formation en éducation financière
+                  </option>
+                  <option value="projets">
+                    Élaboration de projets agricoles
+                  </option>
+                  <option value="commercialisation">
+                    Commercialisation de produits agricoles
+                  </option>
+                </select>
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -112,7 +168,9 @@ export function ContactForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">Envoyer</Button>
+        <Button type="submit" className="w-full">
+          Envoyer
+        </Button>
       </form>
     </Form>
   );

@@ -1,4 +1,5 @@
 import { ContactForm } from "@/components/ContactForm";
+import AdditionnalOpt from "./AdditionnalOpt";
 
 export default function Contact() {
   return (

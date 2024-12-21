@@ -1,5 +1,6 @@
 import { Leaf, Sprout, Users, FileSpreadsheet, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
+import AdditionnalOpt from "./AdditionnalOpt";
 
 const services = [
   {
@@ -60,6 +61,8 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      <AdditionnalOpt />
     </div>
   );
 }

@@ -1,0 +1,25 @@
+.additionnal-opt img {
+    object-fit: fill;
+    width: 90%;
+    height: 400px;
+    max-height: 530px;
+    border-radius: 10px;
+    border: 2px solid rgba(2, 65, 69, 0.585);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f0f0f0;
+}
+
+.additionnal-opt img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.additionnal-opt {
+   display: flex;
+   padding-left: 20px;
+   justify-content: center;
+   flex-direction: column;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   gap: 20px;
+}
