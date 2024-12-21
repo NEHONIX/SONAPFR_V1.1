@@ -14,17 +14,23 @@ export const formSchema = z.object({
 
   phone: z
     .string()
-    .min(12, "Le numéro doit contenir 12 caractères avec l'indicatif +225")
-    .max(12, "Le numéro ne doit pas dépasser 12 caractères")
-    .regex(/^\+225[0-9]{8}$/, "Le numéro doit commencer par +225 suivi de 8 chiffres"),
+    .min(10, "Le numéro doit contenir 12 caractères avec l'indicatif +225")
+    // .max(12, "Le numéro ne doit pas dépasser 12 caractères")
+    .regex(
+      /^\+[0-9]{1,4}[0-9]{8}$/,
+      "Le numéro doit commencer par + suivi de l'indicatif pays et de 8 chiffres"
+    ),
 
   WhatsAppPhone: z
     .string()
-    .min(12, "Le numéro doit contenir 12 caractères avec l'indicatif +225")
-    .max(12, "Le numéro ne doit pas dépasser 12 caractères")
-    .regex(/^\+225[0-9]{8}$/, "Le numéro doit commencer par +225 suivi de 8 chiffres")
+    .min(10, "Le numéro doit contenir 12 caractères avec l'indicatif +225")
+    // .max(12, "Le numéro ne doit pas dépasser 12 caractères")
+    .regex(
+      /^\+[0-9]{1,4}[0-9]{8}$/,
+      "Le numéro doit commencer par + suivi de l'indicatif pays et de 8 chiffres"
+    )
     .optional()
-    .or(z.literal('')),
+    .or(z.literal("")),
 
   service: z.string({
     required_error: "Veuillez sélectionner un service",
