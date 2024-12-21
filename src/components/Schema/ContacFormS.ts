@@ -17,7 +17,7 @@ export const formSchema = z.object({
     .min(10, "Le numéro doit contenir 12 caractères avec l'indicatif +225")
     // .max(12, "Le numéro ne doit pas dépasser 12 caractères")
     .regex(
-      /^\+[0-9]{1,4}[0-9]{8}$/,
+      /^\+[0-9]{1,4}[0-9]{10}$/,
       "Le numéro doit commencer par + suivi de l'indicatif pays et de 8 chiffres"
     ),
 
@@ -26,7 +26,7 @@ export const formSchema = z.object({
     .min(10, "Le numéro doit contenir 12 caractères avec l'indicatif +225")
     // .max(12, "Le numéro ne doit pas dépasser 12 caractères")
     .regex(
-      /^\+[0-9]{1,4}[0-9]{8}$/,
+      /^\+[0-9]{1,4}[0-9]{10}$/,
       "Le numéro doit commencer par + suivi de l'indicatif pays et de 8 chiffres"
     )
     .optional()
