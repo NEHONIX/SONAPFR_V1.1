@@ -1,8 +1,6 @@
 .additionnal-opt img {
     object-fit: fill;
     width: 90%;
-    height: 400px;
-    max-height: 530px;
     border-radius: 10px;
     border: 2px solid rgba(2, 65, 69, 0.585);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -15,11 +13,11 @@
 }
 
 .additionnal-opt {
-   display: flex;
-   padding-left: 20px;
-   justify-content: center;
-   flex-direction: column;
-   flex-wrap: wrap;
-   justify-content: space-between;
-   gap: 20px;
+    display: flex;
+    padding-left: 20px;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
 }
