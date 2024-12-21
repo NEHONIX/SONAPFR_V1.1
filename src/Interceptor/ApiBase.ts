@@ -8,7 +8,7 @@ const apiClient = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, 
+  withCredentials: true,
 });
 
 // Intercepteur pour les requêtes
@@ -40,7 +40,6 @@ apiClient.interceptors.response.use(
         case 404:
           console.error("Ressource non trouvée", error);
           break;
-          break;
         case 429:
           console.error("Trop de tentatives, veuillez réessayer plus tard");
           break;
@@ -51,7 +50,7 @@ apiClient.interceptors.response.use(
           console.error("Une erreur est survenue");
       }
     } else if (error.request) {
-      console.error("Pas de réponse du serveur");
+      console.error("Pas de réponse du serveur", error);
     } else {
       console.error("Erreur de configuration:", error.message);
     }
@@ -61,18 +60,16 @@ apiClient.interceptors.response.use(
 
 // Export des méthodes HTTP communes
 export const api = {
-  get: <T>(url: string, config = {}) => 
-    apiClient.get<T>(url, config),
-  
+  get: <T>(url: string, config = {}) => apiClient.get<T>(url, config),
+
   post: <T>(url: string, data = {}, config = {}) =>
     apiClient.post<T>(url, data, config),
-  
+
   put: <T>(url: string, data = {}, config = {}) =>
     apiClient.put<T>(url, data, config),
-  
-  delete: <T>(url: string, config = {}) =>
-    apiClient.delete<T>(url, config),
-  
+
+  delete: <T>(url: string, config = {}) => apiClient.delete<T>(url, config),
+
   patch: <T>(url: string, data = {}, config = {}) =>
     apiClient.patch<T>(url, data, config),
 };
